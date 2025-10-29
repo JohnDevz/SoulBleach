@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contador de Cliques</title>
+  <title>SoulBleach</title>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
@@ -25,7 +25,7 @@
 
     onValue(contadorRef, (snapshot) => {
       const count = snapshot.val() || 0;
-      document.getElementById("contador").textContent = `Total de cliques: ${count}`;
+      document.getElementById("contador").textContent = `Futuros Jogadores: ${count}`;
     });
 
     document.getElementById("clicou").addEventListener("click", () => {
