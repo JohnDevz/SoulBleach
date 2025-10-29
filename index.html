@@ -30,12 +30,14 @@
     }
 
     .conteudo {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transform: translateY(-175px);
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* força iniciar do topo */
+  min-height: 100vh; /* ocupa altura total da tela */
+  padding-top: 10vh; /* afasta do topo proporcional à tela */
     }
 
     #contador {
