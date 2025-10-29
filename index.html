@@ -6,36 +6,37 @@
   <title>SoulBleach</title>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAizWrvM5KH8Kg0AticMq3Jqe3ptXKQ6_Y",
-      authDomain: "soulbleach-d20d7.firebaseapp.com",
-      databaseURL: "https://soulbleach-d20d7-default-rtdb.firebaseio.com/",
-      projectId: "soulbleach-d20d7",
-      storageBucket: "soulbleach-d20d7.firebasestorage.app",
-      messagingSenderId: "1049138966720",
-      appId: "1:1049138966720:web:92e5564689d98f64efbd25"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyAizWrvM5KH8Kg0AticMq3Jqe3ptXKQ6_Y",
+    authDomain: "soulbleach-d20d7.firebaseapp.com",
+    databaseURL: "https://soulbleach-d20d7-default-rtdb.firebaseio.com/",
+    projectId: "soulbleach-d20d7",
+    storageBucket: "soulbleach-d20d7.firebasestorage.app",
+    messagingSenderId: "1049138966720",
+    appId: "1:1049138966720:web:92e5564689d98f64efbd25"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const contadorRef = ref(db, "contador");
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const contadorRef = ref(db, "contador");
 
-    onValue(contadorRef, (snapshot) => {
-      const count = snapshot.val() || 0;
-      document.getElementById("contador").textContent = `Futuros Jogadores: ${count}`;
-    });
+  onValue(contadorRef, (snapshot) => {
+    const count = snapshot.val() || 0;
+    // 👇 Aqui está o texto que será exibido:
+    document.getElementById("contador").textContent = `Futuros Jogadores: ${count}`;
+  });
 
-    document.getElementById("clicou").addEventListener("click", () => {
-      if (localStorage.getItem("jaClicou") === "true") {
-        alert("Você já clicou antes!");
-        return;
-      }
-      localStorage.setItem("jaClicou", "true");
-      runTransaction(contadorRef, (current) => (current || 0) + 1);
-    });
+  document.getElementById("clicou").addEventListener("click", () => {
+    if (localStorage.getItem("jaClicou") === "true") {
+      alert("Você já clicou antes!");
+      return;
+    }
+    localStorage.setItem("jaClicou", "true");
+    runTransaction(contadorRef, (current) => (current || 0) + 1);
+  });
   </script>
 
   <style>
