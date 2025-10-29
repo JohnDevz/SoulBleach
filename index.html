@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contador de Cliques</title>
 
-  
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
@@ -20,28 +19,23 @@
       appId: "1:1049138966720:web:92e5564689d98f64efbd25"
     };
 
-    
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-
-    
     const contadorRef = ref(db, "contador");
-    
+
     onValue(contadorRef, (snapshot) => {
       const count = snapshot.val() || 0;
       document.getElementById("contador").textContent = `Total de cliques: ${count}`;
     });
 
-document.getElementById("clicou").addEventListener("click", () => {
-  
-  if (localStorage.getItem("jaClicou") === "true") {
-    alert("Você já clicou antes!");
-    return;
-  }
-  localStorage.setItem("jaClicou", "true");
-  
-  runTransaction(contadorRef, (current) => (current || 0) + 1);
-});
+    document.getElementById("clicou").addEventListener("click", () => {
+      if (localStorage.getItem("jaClicou") === "true") {
+        alert("Você já clicou antes!");
+        return;
+      }
+      localStorage.setItem("jaClicou", "true");
+      runTransaction(contadorRef, (current) => (current || 0) + 1);
+    });
   </script>
 
   <style>
@@ -49,23 +43,12 @@ document.getElementById("clicou").addEventListener("click", () => {
       background-color: rgb(55, 55, 55);
       margin: 0;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       font-family: "Arial Black", sans-serif;
-    }
-
-    .imagem {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 50vw;
-      height: 25vh;
-      transform: translate(-50%, -50%);
-      background-size: contain;
-      background-repeat: no-repeat;
-      border-radius: 15px;
-      overflow: hidden;
-      border: 10px ridge black;
-      display: block;
-      z-index: 2;
     }
 
     video {
@@ -78,45 +61,51 @@ document.getElementById("clicou").addEventListener("click", () => {
       z-index: 1;
     }
 
+    #contador {
+      color: white;
+      font-size: 6rem;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      z-index: 3;
+      text-shadow: 2px 2px 5px black;
+      margin-bottom: 30px;
+    }
+
+    .imagem {
+      width: 60vw;
+      height: 30vh;
+      background-size: contain;
+      background-repeat: no-repeat;
+      border-radius: 20px;
+      border: 8px ridge black;
+      z-index: 2;
+      object-fit: contain;
+      margin-bottom: 30px;
+    }
+
     .botao {
       background-color: white;
-      position: absolute;
-      top: 70%;
-      left: 50%;
       cursor: pointer;
-      transform: translate(-50%, -50%);
-      width: 40vw;
-      z-index: 4;
-      height: 7vh;
+      width: 50vw;
+      height: 10vh;
       font-size: 5vh;
       text-align: center;
       border-radius: 20px;
       border: 5px outset black;
       font-weight: bold;
+      z-index: 4;
+      line-height: 10vh;
     }
 
     .botao:hover {
       background-color: lime;
     }
-
-    #contador {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 10rem;
-      text-align: center;
-      font-family: "Courier New", monospace;
-      z-index: 5;
-      text-shadow: 2px 2px 5px black;
-    }
   </style>
 </head>
 <body>
   <video src="https://files.catbox.moe/4k5443.mp4" autoplay muted loop playsinline></video>
+  <div id="contador">Total de cliques: 0</div>
   <img src="https://files.catbox.moe/9aboym.png" class="imagem">
   <div class="botao" id="clicou">Irei Jogar!</div>
-  <div id="contador">Total de cliques: 0</div>
 </body>
 </html>
