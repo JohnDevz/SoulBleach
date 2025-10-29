@@ -29,6 +29,15 @@
       z-index: 1;
     }
 
+    .conteudo {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-80px);
+    }
+
     #contador {
       color: white;
       font-size: 80px;
@@ -36,10 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: absolute;
-      top: 250px;
       font-family: "Courier New", monospace;
-      z-index: 3;
       text-shadow: 2px 2px 5px black;
       margin-bottom: 30px;
     }
@@ -65,7 +71,6 @@
       width: 50vw;
       height: 10vh;
       font-size: 5vh;
-      position: relative;
       align-items: center;
       display: flex;
       justify-content: center;
@@ -84,15 +89,17 @@
 </head>
 <body>
   <video src="https://files.catbox.moe/4k5443.mp4" autoplay muted loop playsinline></video>
-  <div id="contador">Futuros Jogadores: 0</div>
-  <img src="https://files.catbox.moe/9aboym.png" class="imagem">
-  <div class="botao" id="clicou">Irei Jogar!</div>
-  
+
+  <div class="conteudo">
+    <div id="contador">Futuros Jogadores: 0</div>
+    <img src="https://files.catbox.moe/9aboym.png" class="imagem">
+    <div class="botao" id="clicou">Irei Jogar!</div>
+  </div>
 
   <script type="module">
-    window.addEventListener("DOMContentLoaded", () => {
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-      import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    window.addEventListener("DOMContentLoaded", async () => {
+      const { initializeApp } = await import("https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js");
+      const { getDatabase, ref, onValue, runTransaction } = await import("https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js");
 
       const firebaseConfig = {
         apiKey: "AIzaSyAizWrvM5KH8Kg0AticMq3Jqe3ptXKQ6_Y",
@@ -107,7 +114,6 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
       const contadorRef = ref(db, "contador");
-
       const contadorEl = document.getElementById("contador");
 
       onValue(contadorRef, (snapshot) => {
